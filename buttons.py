@@ -54,7 +54,7 @@ class Microbit(object):
                 b_press = True
                 self._b_waiting = False
         else:
-            self._a_waiting = True
+            self._b_waiting = True
 
         # run program according to calculated state
         if a_press:
@@ -87,11 +87,22 @@ def get_b_pressed():
     return microbit.button_b.is_pressed()
 
 
-
 """
 class TestApp(Microbit):
+    state = True
+
+    def a_pressed(self, time):
+        self.state = False
+
+    def b_pressed(self, time):
+        self.state = True
+
     def tick(self, time, a_press, b_press, a_down, b_down):
-        microbit.display.show(str(time)[0])
+        if self.state:
+            display = "F"
+        else:
+            display = str(time)[0]
+        microbit.display.show(display)
 
     pass
 
