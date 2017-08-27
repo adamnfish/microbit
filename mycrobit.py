@@ -85,28 +85,3 @@ def get_a_pressed():
 
 def get_b_pressed():
     return microbit.button_b.is_pressed()
-
-
-"""
-class TestApp(Microbit):
-    state = True
-
-    def a_pressed(self, time):
-        self.state = False
-
-    def b_pressed(self, time):
-        self.state = True
-
-    def tick(self, time, a_press, b_press, a_down, b_down):
-        if self.state:
-            display = "F"
-        else:
-            display = str(time)[0]
-        microbit.display.show(display)
-
-    pass
-
-if __name__ == "__main__":
-    app = TestApp(get_time, get_a_pressed, get_b_pressed)
-    app.start()
-"""
