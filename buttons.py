@@ -1,3 +1,5 @@
+import microbit
+
 
 class Microbit(object):
     _a_down = False
@@ -11,7 +13,7 @@ class Microbit(object):
     _get_a_pressed = None
     _get_b_pressed = None
 
-    def init(self, get_time, get_a_pressed, get_b_pressed):
+    def __init__(self, get_time, get_a_pressed, get_b_pressed):
         """
         Create instance and provide getters for microbit information.
         These functions should take no arguments and return an Int (time),
@@ -23,8 +25,8 @@ class Microbit(object):
         return
 
     def start(self):
-        while _running:
-            _logic()
+        while self._running:
+            self._logic()
         return
 
     def stop(self):
@@ -59,7 +61,7 @@ class Microbit(object):
             self.a_pressed(time)
         if b_press:
             self.b_pressed(time)
-        tick(time, a_press, b_press, self._a_down, self._b_down)
+        self.tick(time, a_press, b_press, self._a_down, self._b_down)
 
         return
 
@@ -72,3 +74,28 @@ class Microbit(object):
 
     def tick(self, time, a_press, b_press, a_down, b_down):
         pass
+
+    pass
+
+def get_time():
+    return microbit.running_time()
+
+def get_a_pressed():
+    return microbit.button_a.is_pressed()
+
+def get_b_pressed():
+    return microbit.button_b.is_pressed()
+
+
+
+"""
+class TestApp(Microbit):
+    def tick(self, time, a_press, b_press, a_down, b_down):
+        microbit.display.show(str(time)[0])
+
+    pass
+
+if __name__ == "__main__":
+    app = TestApp(get_time, get_a_pressed, get_b_pressed)
+    app.start()
+"""
