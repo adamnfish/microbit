@@ -33,7 +33,7 @@ class TechnoTimer(Microbit):
                 time_per_light = (self.timer_length) / 25
                 lights_count = 25 - int((time - self.start_time) / time_per_light)
                 microbit.display.show(microbit.Image(self.toDisplayString(lights_count)))
-            elif time < self.start_time + self.timer_length + 1000:
+            elif time < self.start_time + self.timer_length + 2000:
                 # show solid red for 1 second after timer finishes
                 microbit.display.show(microbit.Image(self.SOLID))
             else:
