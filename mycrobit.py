@@ -75,6 +75,7 @@ class Microbit(object):
     def tick(self, time, a_press, b_press, a_down, b_down):
         pass
 
+    SOLID = ":".join(["9" * 5] * 5)
     pass
 
 def get_time():
