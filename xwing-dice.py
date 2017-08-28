@@ -19,22 +19,22 @@ class XwingDice(Microbit):
             "09990:" \
             "00000"
     evade = "00799:" \
-            "00499:" \
+            "90089:" \
             "00907:" \
-            "49400:" \
+            "09000:" \
             "90000"
     die_face = None
     roll_duration = 250
-    show_duration = 1500
+    show_duration = 2000
     roll_time = 0
     
     def a_pressed(self, time):
         """Attack die"""
         self.roll_time = time
         rnd = random.randint(1, 8)
-        if rnd <= 3:
+        if rnd <= 2:
             self.die_face = self.blank
-        elif rnd == 4:
+        elif rnd <= 4:
             self.die_face = self.focus
         elif rnd <= 7:
             self.die_face = self.hit
@@ -45,24 +45,23 @@ class XwingDice(Microbit):
         """Defence die"""
         self.roll_time = time
         rnd = random.randint(1, 8)
-        if rnd <= 4:
+        if rnd <= 3:
             self.die_face = self.blank
-        elif rnd == 5:
+        elif rnd <= 5:
             self.die_face = self.focus
-        else:
+        elif rnd <= 8:
             self.die_face = self.evade
 
     def tick(self, time, a_pressed, b_pressed, a_down, b_down):
         if self.die_face:
             if time < self.roll_time + self.roll_duration:
                 # rolling
-                microbit.display.show(mirobit.Image(self.SOLID))
+                microbit.display.show(microbit.Image(self.SOLID))
             elif time < self.roll_time + self.show_duration:
-                microbit.display.show(mirobit.Image(self.die_face))
+                microbit.display.show(microbit.Image(self.die_face))
             else:
-                microbit.display.show(mirobit.Image())
+                microbit.display.show(microbit.Image())
                 self.die_face = None
-    pass
 
 
 
