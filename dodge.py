@@ -10,34 +10,32 @@ class Dodge(Microbit):
     obstacle_row = False
     field = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
     move_count = 0
-    move_interval = 1000
+    move_interval = 900
     difficulty = 21
     next_advance_time = 0
     player_column = 2
     alive = True
 
     def tick(self, time, a_press, b_press, a_down, b_down):
-        if self.alive and self.next_advance_time < time:
-            self.difficulty = min(self.difficulty + 1, 99)
-            self.move_interval = max(self.move_interval - 1, 400)
-            self.advance()
-            self.display()
-            self.check_death()
-            if self.alive:
+        if self.alive:
+            if a_press:
+                self.player_column = max(0, self.player_column - 1)
+                self.check_death()
+                self.display()
+            if b_press:
+                self.player_column = min(4, self.player_column + 1)
+                self.check_death()
+                self.display()
+            if self.next_advance_time < time:
+                self.difficulty = min(self.difficulty + 1, 99)
+                self.move_interval = max(self.move_interval - 5, 400)
+                self.advance()
+                self.display()
+                self.check_death()
                 self.next_advance_time = time + self.move_interval
-
-    def a_pressed(self, time):
-        self.player_column = max(0, self.player_column - 1)
-        self.check_death()
-        self.display()
-        return
-
-    def b_pressed(self, time):
-        self.player_column = min(4, self.player_column + 1)
-        self.check_death()
-        self.display()
-        return
-
+#        elif self.next_advance_time + 1500 < time:
+#            microbit.display.show(microbit.Image.SKULL)
+                
     def advance(self):
         if self.obstacle_row:
             next_row = self.generate_row()
@@ -74,7 +72,7 @@ class Dodge(Microbit):
 
     def generate_row(self):
         """
-        Difficulty 1-100, randomnly produces 0 - 4 obstacles.
+        Difficulty 1-99, randomnly produces 0 - 4 obstacles.
         """
         obstacle_count = int(random.randint(10, self.difficulty) / 20)
         row = []
