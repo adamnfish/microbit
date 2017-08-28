@@ -23,30 +23,45 @@ class XwingDice(Microbit):
             "00907:" \
             "49400:" \
             "90000"
-
+    die_face = None
+    roll_duration = 250
+    show_duration = 1500
+    roll_time = 0
+    
     def a_pressed(self, time):
         """Attack die"""
+        self.roll_time = time
         rnd = random.randint(1, 8)
         if rnd <= 3:
-            microbit.display.show(microbit.Image(self.blank))
+            self.die_face = self.blank
         elif rnd == 4:
-            microbit.display.show(microbit.Image(self.focus))
+            self.die_face = self.focus
         elif rnd <= 7:
-            microbit.display.show(microbit.Image(self.hit))
+            self.die_face = self.hit
         elif rnd == 8:
-            microbit.display.show(microbit.Image(self.crit))
+            self.die_face = self.crit
     
     def b_pressed(self, time):
         """Defence die"""
+        self.roll_time = time
         rnd = random.randint(1, 8)
         if rnd <= 4:
-            microbit.display.show(microbit.Image(self.blank))
+            self.die_face = self.blank
         elif rnd == 5:
-            microbit.display.show(microbit.Image(self.focus))
+            self.die_face = self.focus
         else:
-            microbit.display.show(microbit.Image(self.evade))
+            self.die_face = self.evade
 
-
+    def tick(self, time, a_pressed, b_pressed, a_down, b_down):
+        if self.die_face:
+            if time < self.roll_time + self.roll_duration:
+                # rolling
+                microbit.display.show(mirobit.Image(self.SOLID))
+            elif time < self.roll_time + self.show_duration:
+                microbit.display.show(mirobit.Image(self.die_face))
+            else:
+                microbit.display.show(mirobit.Image())
+                self.die_face = None
     pass
 
 
