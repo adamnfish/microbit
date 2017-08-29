@@ -40,10 +40,7 @@ class TechnoTimer(Microbit):
                 self.reset()
 
     def toDisplayString(self, n):
-        if n < 0:
-            ints = "9" * 25
-        else:
-            ints = ("9" * n) + ("0" * (25 - n))
+        ints = ("9" * n) + ("0" * (25 - n))
         coords = ""
         for (index, digit) in enumerate(ints):
             if (index) % 5 == 0 and index > 0:
