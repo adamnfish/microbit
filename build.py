@@ -10,7 +10,7 @@ def main():
     args = parser.parse_args()
     src = args.source_file.read()
     output_file = args.output_filename or "program-src.py"
-    with open("mycrobit.py", "r") as lib:
+    with open("microbit-lib.py", "r") as lib:
         with open(output_file, "w") as output:
             # library code
             output.write(lib.read())
