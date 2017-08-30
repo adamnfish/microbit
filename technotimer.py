@@ -35,7 +35,7 @@ class TechnoTimer(Microbit):
                 microbit.display.show(microbit.Image(self.toDisplayString(lights_count)))
             elif time < self.start_time + self.timer_length + 2000:
                 # show solid red for 1 second after timer finishes
-                microbit.display.show(microbit.Image(self.SOLID))
+                microbit.display.show(microbit.Image().fill(9))
             else:
                 self.reset()
 

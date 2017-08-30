@@ -27,7 +27,7 @@ class XwingDice(Microbit):
     roll_duration = 250
     show_duration = 2000
     roll_time = 0
-    
+
     def a_pressed(self, time):
         """Attack die"""
         self.roll_time = time
@@ -40,7 +40,7 @@ class XwingDice(Microbit):
             self.die_face = self.hit
         elif rnd == 8:
             self.die_face = self.crit
-    
+
     def b_pressed(self, time):
         """Defence die"""
         self.roll_time = time
@@ -56,55 +56,11 @@ class XwingDice(Microbit):
         if self.die_face:
             if time < self.roll_time + self.roll_duration:
                 # rolling
-                microbit.display.show(microbit.Image(self.SOLID))
+                microbit.display.show(microbit.Image().fill(9))
             elif time < self.roll_time + self.show_duration:
+                # show result
                 microbit.display.show(microbit.Image(self.die_face))
             else:
+                # reset
                 microbit.display.show(microbit.Image())
                 self.die_face = None
-
-
-
-"""
-HIT
-09990
-90009
-90009
-90009
-09990
-
-CRIT
-09990
-95059
-90509
-95059
-09990
-
-HiIT (ALT)
-02020
-24742
-07070
-24742
-02020
-
-CRIT (ALT)
-02020
-24742
-07970
-24742
-02020
-
-EVADE
-00099
-00159
-00500
-15100
-50000
-
-FOCUS
-00000
-09990
-90509
-09990
-00000
-"""
